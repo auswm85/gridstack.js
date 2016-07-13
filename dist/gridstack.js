@@ -543,7 +543,8 @@
             removable: false,
             removeTimeout: 2000,
             verticalMarginUnit: 'px',
-            cellHeightUnit: 'px'
+            cellHeightUnit: 'px',
+            staticHeight: opts.staticHeight || false
         });
 
         if (this.opts.rtl === 'auto') {
@@ -923,7 +924,13 @@
         if (this.grid._updateCounter) {
             return;
         }
-        var height = this.grid.getGridHeight();
+
+        var height = this.opts.height;
+
+        if (!this.opts.staticHeight) {
+            height = this.grid.getGridHeight();
+        }
+
         this.container.attr('data-gs-current-height', height);
         if (!this.opts.cellHeight) {
             return ;
